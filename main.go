@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -24,6 +25,10 @@ func main() {
 	})
 	slog.Info("Server Starting on Port 3000...")
 	r.Handle("/public/*", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
-	http.ListenAndServe(":3000", r)
+	err := http.ListenAndServe(":3000", r)
+
+	if err != nil {
+		fmt.Printf("An error occurred %v", err)
+	}
 
 }
