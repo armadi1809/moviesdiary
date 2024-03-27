@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"net/http"
 
+	"github.com/armadi1809/moviesdiary/handlers"
 	"github.com/armadi1809/moviesdiary/sb"
 	"github.com/armadi1809/moviesdiary/views"
 	"github.com/go-chi/chi/v5"
@@ -37,13 +38,14 @@ func main() {
 	r.Get("/login/google", func(w http.ResponseWriter, r *http.Request) {
 		resp, err := sb.Client.Auth.SignInWithProvider(supabase.ProviderSignInOptions{
 			Provider:   "google",
-			RedirectTo: "http://localhost:3000/",
+			RedirectTo: "http://localhost:3000/auth/callback",
 		})
 		if err != nil {
 			fmt.Println("Error ocurred")
 		}
 		http.Redirect(w, r, resp.URL, http.StatusSeeOther)
 	})
+	r.Get("/auth/callback", handlers.HandleAuthCallback)
 	slog.Info("Server Starting on Port 3000...")
 	r.Handle("/public/*", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 	err = http.ListenAndServe(":3000", r)

@@ -1,0 +1,9 @@
+package views 
+
+templ Navbar(loggedIn bool) {
+	<nav>
+		if !loggedIn {
+			<a href="/login/google">Log in</a>
+		}
+	</nav>
+}
