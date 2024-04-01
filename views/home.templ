@@ -2,6 +2,10 @@ package views
 
 templ Hello(name string) {
 	@Layout() {
-		<div>Welcome to movies Diary</div>
+		if len(name) > 0 {
+			<div>Welcome back! { name }</div>
+		} else {
+			<input name="login" type="button" value="Log in"/>
+		}
 	}
 }
