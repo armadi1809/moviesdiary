@@ -1376,18 +1376,9 @@ html {
   flex: none;
 }
 
-.rounded-t-none {
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-}
-
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
-}
-
-.p-2 {
-  padding: 0.5rem;
 }
 
 .px-1 {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"net/http"
 
 	"github.com/armadi1809/moviesdiary/handlers"
@@ -9,7 +10,7 @@ import (
 	"github.com/nedpals/supabase-go"
 )
 
-func routes(sbClient *supabase.Client) http.Handler {
+func routes(sbClient *supabase.Client, db *sql.DB) http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Group(func(authenticated chi.Router) {
