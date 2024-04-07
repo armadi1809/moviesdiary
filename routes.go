@@ -1,20 +1,20 @@
 package main
 
 import (
-	"database/sql"
 	"net/http"
 
+	"github.com/armadi1809/moviesdiary/db"
 	"github.com/armadi1809/moviesdiary/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/nedpals/supabase-go"
 )
 
-func routes(sbClient *supabase.Client, db *sql.DB) http.Handler {
+func routes(sbClient *supabase.Client, db *db.Queries) http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Group(func(authenticated chi.Router) {
-		authenticated.Use(handlers.WithAuth(sbClient))
+		authenticated.Use(handlers.WithAuth(sbClient, db))
 		authenticated.Get("/", handlers.HomeHandler())
 	})
 

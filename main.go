@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/armadi1809/moviesdiary/db"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/nedpals/supabase-go"
@@ -38,14 +39,14 @@ func newSupabaseClient() *supabase.Client {
 	return supabase.CreateClient(sbHost, sbSecret)
 }
 
-func openDb() (*sql.DB, error) {
+func openDb() (*db.Queries, error) {
 	connString := os.Getenv("DbConnString")
-	db, err := sql.Open("postgres", connString)
+	dbConn, err := sql.Open("postgres", connString)
 	if err != nil {
 		return nil, err
 	}
-	if err = db.Ping(); err != nil {
+	if err = dbConn.Ping(); err != nil {
 		return nil, err
 	}
-	return db, nil
+	return db.New(dbConn), nil
 }

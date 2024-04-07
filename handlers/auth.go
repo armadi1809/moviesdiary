@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/armadi1809/moviesdiary/db"
 	"github.com/armadi1809/moviesdiary/views"
 	"github.com/nedpals/supabase-go"
 )
@@ -42,10 +43,10 @@ func GoogleLoginHandler(sbClient *supabase.Client) http.HandlerFunc {
 	}
 }
 
-func getUserFromRequest(r *http.Request) supabase.User {
-	user, ok := r.Context().Value(userInfoKey("userInfo")).(supabase.User)
+func getUserFromRequest(r *http.Request) db.User {
+	user, ok := r.Context().Value(userInfoKey("userInfo")).(db.User)
 	if !ok {
-		return supabase.User{}
+		return db.User{}
 	}
 	return user
 }

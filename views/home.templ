@@ -1,11 +1,11 @@
 package views
 
-templ Hello(name string) {
+templ HomePage(name string) {
 	@Layout(name != "") {
 		if len(name) > 0 {
 			<div>Welcome back! { name }</div>
 		} else {
-			<input name="login" type="button" value="Log in"/>
+			<div>Welcome to movies diary please login or sign up to start</div>
 		}
 	}
 }

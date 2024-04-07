@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/armadi1809/moviesdiary/views"
@@ -10,8 +9,7 @@ import (
 func HomeHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		user := getUserFromRequest(r)
-		fmt.Println("Heeeeereeee", user.Email)
-		component := views.Hello(user.Email)
+		component := views.HomePage(user.Name)
 		err := component.Render(r.Context(), w)
 
 		if err != nil {

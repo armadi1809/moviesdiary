@@ -4,18 +4,19 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
+	"github.com/armadi1809/moviesdiary/db"
 	"github.com/nedpals/supabase-go"
 )
 
 type userInfoKey string
 
-func WithAuth(sbClient *supabase.Client) func(next http.Handler) http.Handler {
+func WithAuth(sbClient *supabase.Client, queries *db.Queries) func(next http.Handler) http.Handler {
 
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			cookie, err := r.Cookie("at")
-			fmt.Println("Heeeeeeereeee", cookie)
 
 			if err != nil {
 				http.Redirect(w, r, "/login/google", http.StatusPermanentRedirect)
@@ -27,7 +28,18 @@ func WithAuth(sbClient *supabase.Client) func(next http.Handler) http.Handler {
 				http.Redirect(w, r, "/login/google", http.StatusPermanentRedirect)
 				return
 			}
-			ctx := context.WithValue(r.Context(), userInfoKey("userInfo"), *user)
+			userDb, err := queries.GetUser(r.Context(), user.Email)
+			if err != nil {
+				userEmailSplit := strings.Split(user.Email, "@")
+				userDb, err = queries.CreateUser(r.Context(), db.CreateUserParams{Name: userEmailSplit[0], Email: user.Email})
+				if err != nil {
+					fmt.Printf("An Error occurred creating user %v\n", err)
+					w.WriteHeader(http.StatusInternalServerError)
+					w.Write([]byte("Unabele to find or setup account for user"))
+					return
+				}
+			}
+			ctx := context.WithValue(r.Context(), userInfoKey("userInfo"), userDb)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		}
 		return http.HandlerFunc(fn)

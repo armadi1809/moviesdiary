@@ -3,13 +3,8 @@
 //   sqlc v1.23.0
 
 package db
-
-import (
-	"database/sql"
-)
-
 type User struct {
 	ID    int64
 	Name  string
-	Email sql.NullString
+	Email string
 }
