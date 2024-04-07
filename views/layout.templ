@@ -1,6 +1,6 @@
 package views
 
-templ Layout() {
+templ Layout(loggedIn bool) {
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
@@ -9,7 +9,7 @@ templ Layout() {
 			<title>Movies Diary</title>
 		</head>
 		<body>
-			@Navbar(false)
+			@Navbar(loggedIn)
 			{ children... }
 		</body>
 	</html>

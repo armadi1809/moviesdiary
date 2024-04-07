@@ -1,9 +1,18 @@
 package views 
 
 templ Navbar(loggedIn bool) {
-	<nav>
-		if !loggedIn {
-			<a href="/login/google">Log in</a>
-		}
-	</nav>
+	<div class="navbar bg-base-100">
+		<div class="flex-1">
+			<a class="btn btn-ghost text-xl">Movies Diary</a>
+		</div>
+		<div class="flex-none">
+			<ul class="menu menu-horizontal px-1">
+				if loggedIn {
+					<li>Logout</li>
+				} else {
+					<li>Login</li>
+				}
+			</ul>
+		</div>
+	</div>
 }
