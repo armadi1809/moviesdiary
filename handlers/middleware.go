@@ -17,15 +17,16 @@ func WithAuth(sbClient *supabase.Client, queries *db.Queries) func(next http.Han
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			cookie, err := r.Cookie("at")
-
 			if err != nil {
-				http.Redirect(w, r, "/login/google", http.StatusPermanentRedirect)
+				fmt.Printf("An error occurred getting the cookie in with auth %v", err)
+				http.Redirect(w, r, "/login/google", http.StatusTemporaryRedirect)
 				return
 			}
 			accessToken := cookie.Value
 			user, err := sbClient.Auth.User(r.Context(), accessToken)
 			if err != nil {
-				http.Redirect(w, r, "/login/google", http.StatusPermanentRedirect)
+				fmt.Printf("Could not authenticate user with google %v", err)
+				http.Redirect(w, r, "/login/google", http.StatusTemporaryRedirect)
 				return
 			}
 			userDb, err := queries.GetUser(r.Context(), user.Email)

@@ -24,7 +24,7 @@ func HandleAuthCallback(w http.ResponseWriter, r *http.Request) {
 		Secure:   true,
 		SameSite: http.SameSiteStrictMode,
 	}
-
+	fmt.Println("access_token", accessToken)
 	http.SetCookie(w, &cookie)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
