@@ -1,6 +1,7 @@
 package views 
 
 import "github.com/armadi1809/moviesdiary/tmdb"
+import "fmt"
 
 templ MovieCard(name, description, posterPath string) {
 	<div class="card card-compact w-96 bg-base-100 shadow-xl">
@@ -9,7 +10,7 @@ templ MovieCard(name, description, posterPath string) {
 			<h2 class="card-title">{ name }</h2>
 			<p>{ description }</p>
 			<div class="card-actions justify-end">
-				<button class="btn btn-primary">Add To Diary</button>
+				<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s", name, posterPath) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
 			</div>
 		</div>
 	</div>

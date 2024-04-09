@@ -23,3 +23,15 @@ func BrowseHandler(tmdbClient *tmdb.TmdbClient) http.HandlerFunc {
 	}
 
 }
+
+func AddMovieModalHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		posterUrl := r.URL.Query().Get("posterUrl")
+		movieName := r.URL.Query().Get("movieName")
+		component := views.AddModalMovie(movieName, posterUrl)
+		err := component.Render(r.Context(), w)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+	}
+}

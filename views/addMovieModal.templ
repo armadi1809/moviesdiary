@@ -1,0 +1,23 @@
+package views 
+
+import "github.com/armadi1809/moviesdiary/tmdb"
+
+templ AddModalMovie(movieName, posterUrl string) {
+	<script>
+        add_modal_movie.showModal()
+    </script>
+	<dialog id="add_modal_movie" class="modal">
+		<div class="modal-box w-11/12 max-w-5xl">
+			<h3 class="font-bold text-lg">{ movieName }</h3>
+			<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
+			<div class="modal-action">
+				<form method="dialog">
+					<!-- if there is a button, it will close the modal -->
+					<input type="text" placeholder="Where did you watch it?" class="input input-bordered input-primary w-full max-w-xs"/>
+					<textarea class="textarea textarea-primary" placeholder="What did you think about the movie?"></textarea>
+					<button class="btn">Close</button>
+				</form>
+			</div>
+		</div>
+	</dialog>
+}
