@@ -10,7 +10,7 @@ templ MovieCard(name, description, posterPath string) {
 			<h2 class="card-title">{ name }</h2>
 			<p>{ description }</p>
 			<div class="card-actions justify-end">
-				<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s", name, posterPath) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
+				<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
 			</div>
 		</div>
 	</div>

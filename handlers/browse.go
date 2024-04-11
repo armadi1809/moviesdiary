@@ -28,7 +28,8 @@ func AddMovieModalHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		posterUrl := r.URL.Query().Get("posterUrl")
 		movieName := r.URL.Query().Get("movieName")
-		component := views.AddModalMovie(movieName, posterUrl)
+		description := r.URL.Query().Get("description")
+		component := views.AddModalMovie(movieName, posterUrl, description)
 		err := component.Render(r.Context(), w)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
