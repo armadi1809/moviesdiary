@@ -1,6 +1,7 @@
 package views 
 
 import "github.com/armadi1809/moviesdiary/tmdb"
+import "fmt"
 
 templ AddModalMovie(movieName, posterUrl, description string) {
 	<div id="movie-modal-containter">
@@ -13,10 +14,12 @@ templ AddModalMovie(movieName, posterUrl, description string) {
 				<div class="flex flex-row gap-1 p-4">
 					<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
 					<div class="modal-action p-6 w-full">
-						<form method="dialog" class="flex flex-col gap-3 flex-grow">
+						<form method="dialog" hx-post={ fmt.Sprintf("/addMovie?movieName=%s&posterUrl=%s&description=%s", movieName, posterUrl, description) } hx-target="#inputsContainer" hx-swap="outerHTML" class="flex flex-col gap-3 flex-grow">
 							<!-- if there is a button, it will close the modal -->
-							<input type="text" placeholder="Where did you watch it?" class="input input-bordered input-primary w-full"/>
-							<textarea class="textarea textarea-primary" placeholder="What did you think about the movie?"></textarea>
+							<div id="inputsContainer" class="flex flex-col gap-3">
+								<input name="locationWatched" type="text" placeholder="Where did you watch it?" class="input input-bordered input-primary w-full"/>
+								<textarea name="diary" class="textarea textarea-primary" placeholder="What did you think about the movie?"></textarea>
+							</div>
 							<div class="flex justify-end gap-2">
 								<button class="btn">Add</button>
 								<button class="btn" onClick="closeModal(event)">Close</button>

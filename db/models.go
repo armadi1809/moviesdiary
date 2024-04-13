@@ -3,6 +3,23 @@
 //   sqlc v1.23.0
 
 package db
+
+import (
+	"database/sql"
+)
+
+type Movie struct {
+	ID              int64
+	UserID          int64
+	Name            sql.NullString
+	WatchedDate     sql.NullTime
+	PosterUrl       sql.NullString
+	Diary           sql.NullString
+	Description     sql.NullString
+	LocationWatched sql.NullString
+	ReleaseDate     sql.NullString
+}
+
 type User struct {
 	ID    int64
 	Name  string

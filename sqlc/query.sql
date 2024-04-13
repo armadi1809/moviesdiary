@@ -9,3 +9,16 @@ INSERT INTO users (
   $1, $2
 )
 RETURNING *;
+
+-- name: GetMoviesForUser :many
+SELECT * FROM movies 
+where user_id = $1
+Order by "watchedDate" desc;
+
+-- name: CreateMovie :one
+INSERT INTO movies (
+  user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate"
+) VALUES (
+  $1, $2, $3, $4, $5, $6, $7, $8
+)
+RETURNING *;

@@ -20,6 +20,7 @@ func routes(sbClient *supabase.Client, db *db.Queries, tmdbClient *tmdb.TmdbClie
 		authenticated.Get("/browse", handlers.BrowseHandler(tmdbClient))
 		authenticated.Get("/addMovieModal", handlers.AddMovieModalHandler())
 		authenticated.Post("/searchMovie", handlers.SearchForMovieHandler(tmdbClient))
+		authenticated.Post("/addMovie", handlers.AddMovieHandler(db))
 	})
 
 	r.Get("/login/google", handlers.GoogleLoginHandler(sbClient))

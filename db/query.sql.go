@@ -7,7 +7,54 @@ package db
 
 import (
 	"context"
+	"time"
 )
+
+const createMovie = `-- name: CreateMovie :one
+INSERT INTO movies (
+  user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate"
+) VALUES (
+  $1, $2, $3, $4, $5, $6, $7, $8
+)
+RETURNING id, user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate"
+`
+
+type CreateMovieParams struct {
+	UserID          int64
+	Name            string
+	WatchedDate   	time.Time
+	PosterUrl       string
+	Diary           string
+	Description     string
+	LocationWatched string
+	ReleaseDate     string
+}
+
+func (q *Queries) CreateMovie(ctx context.Context, arg CreateMovieParams) (Movie, error) {
+	row := q.db.QueryRowContext(ctx, createMovie,
+		arg.UserID,
+		arg.Name,
+		arg.WatchedDate,
+		arg.PosterUrl,
+		arg.Diary,
+		arg.Description,
+		arg.LocationWatched,
+		arg.ReleaseDate,
+	)
+	var i Movie
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Name,
+		&i.WatchedDate,
+		&i.PosterUrl,
+		&i.Diary,
+		&i.Description,
+		&i.LocationWatched,
+		&i.ReleaseDate,
+	)
+	return i, err
+}
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (
@@ -28,6 +75,45 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	var i User
 	err := row.Scan(&i.ID, &i.Name, &i.Email)
 	return i, err
+}
+
+const getMoviesForUser = `-- name: GetMoviesForUser :many
+SELECT id, user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate" FROM movies 
+where user_id = $1
+Order by "watchedDate" desc
+`
+
+func (q *Queries) GetMoviesForUser(ctx context.Context, userID int64) ([]Movie, error) {
+	rows, err := q.db.QueryContext(ctx, getMoviesForUser, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Movie
+	for rows.Next() {
+		var i Movie
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.Name,
+			&i.WatchedDate,
+			&i.PosterUrl,
+			&i.Diary,
+			&i.Description,
+			&i.LocationWatched,
+			&i.ReleaseDate,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getUser = `-- name: GetUser :one
