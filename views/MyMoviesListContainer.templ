@@ -1,0 +1,11 @@
+package views 
+
+import "github.com/armadi1809/moviesdiary/db"
+
+templ MyMoviesListContainer(movies []db.Movie) {
+	<div id="moviesListContainer" class="grid grid-cols-3 justify-items-center gap-2 mx-auto container">
+		for _, movie := range movies {
+			@MovieCard(movie.Name, movie.Description, movie.PosterUrl, false)
+		}
+	</div>
+}

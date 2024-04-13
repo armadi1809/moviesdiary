@@ -5,19 +5,19 @@
 package db
 
 import (
-	"database/sql"
+	"time"
 )
 
 type Movie struct {
 	ID              int64
 	UserID          int64
-	Name            sql.NullString
-	WatchedDate     sql.NullTime
-	PosterUrl       sql.NullString
-	Diary           sql.NullString
-	Description     sql.NullString
-	LocationWatched sql.NullString
-	ReleaseDate     sql.NullString
+	Name            string
+	WatchedDate     time.Time
+	PosterUrl       string
+	Diary           string
+	Description     string
+	LocationWatched string
+	ReleaseDate     string
 }
 
 type User struct {

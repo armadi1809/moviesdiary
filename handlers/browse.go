@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/armadi1809/moviesdiary/db"
 	"github.com/armadi1809/moviesdiary/tmdb"
@@ -81,13 +82,13 @@ func AddMovieHandler(queries *db.Queries) http.HandlerFunc {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		// dateWatched, err := time.Parse(timeLayout, r.Form.Get("dateWatched"))
-		// if err != nil {
-		// 	w.Header().Set("HX-Reswap", "none")
-		// 	w.WriteHeader(http.StatusInternalServerError)
-		// 	w.Write([]byte("Watched Date is invalid"))
-		// 	return
-		// }
+		dateWatched, err := time.Parse(timeLayout, r.Form.Get("dateWatched"))
+		if err != nil {
+			w.Header().Set("HX-Reswap", "none")
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Watched Date is invalid"))
+			return
+		}
 		params := db.CreateMovieParams{
 			UserID:          user.ID,
 			PosterUrl:       r.URL.Query().Get("posterUrl"),
@@ -95,7 +96,7 @@ func AddMovieHandler(queries *db.Queries) http.HandlerFunc {
 			Description:     r.URL.Query().Get("description"),
 			Diary:           r.Form.Get("diary"),
 			LocationWatched: r.Form.Get("locationWatched"),
-			//WatchedDate:     sql.NullTime{},
+			WatchedDate:     dateWatched,
 		}
 
 		movie, err := queries.CreateMovie(r.Context(), params)
@@ -107,7 +108,7 @@ func AddMovieHandler(queries *db.Queries) http.HandlerFunc {
 			return
 		}
 
-		component := views.SuccessfullAdditionMessage(movie.Name.String)
+		component := views.SuccessfullAdditionMessage(movie.Name)
 		err = component.Render(r.Context(), w)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)

@@ -8,6 +8,7 @@ templ Navbar(loggedIn bool) {
 		<div class="flex-none">
 			<ul class="menu menu-horizontal px-1">
 				if loggedIn {
+					<li><p><a href="/myMovies">My Movies</a></p></li>
 					<li><p><a href="/browse">Browse</a></p></li>
 					<li><p>Logout</p></li>
 				} else {

@@ -3,14 +3,18 @@ package views
 import "github.com/armadi1809/moviesdiary/tmdb"
 import "fmt"
 
-templ MovieCard(name, description, posterPath string) {
+templ MovieCard(name, description, posterPath string, isAdd bool) {
 	<div class="card card-compact w-96 bg-base-100 shadow-xl">
 		<figure><img src={ tmdb.PosterBasePath + posterPath } alt="Shoes"/></figure>
 		<div class="card-body">
 			<h2 class="card-title">{ name }</h2>
 			<p>{ description }</p>
 			<div class="card-actions justify-end">
-				<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
+				if (isAdd) {
+					<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
+				} else {
+					<button hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Edit My Diary</button>
+				}
 			</div>
 		</div>
 	</div>
