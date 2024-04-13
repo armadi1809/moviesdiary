@@ -9,6 +9,12 @@ templ Layout(loggedIn bool) {
 			<script src="/public/htmx.min.js"></script>
 			<title>Movies Diary</title>
 		</head>
+		<script>
+		function closeModal(event) {
+			event.preventDefault()
+			document.getElementById("add_modal_movie").remove()
+		}
+		</script>
 		<body class="mx-auto container">
 			@Navbar(loggedIn)
 			{ children... }

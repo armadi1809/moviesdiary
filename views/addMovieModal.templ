@@ -3,32 +3,34 @@ package views
 import "github.com/armadi1809/moviesdiary/tmdb"
 
 templ AddModalMovie(movieName, posterUrl, description string) {
-	<script>
+	<div id="movie-modal-containter">
+		<script>
         add_modal_movie.showModal()
-    </script>
-	<dialog id="add_modal_movie" class="modal">
-		<div class="modal-box w-11/12 max-w-5xl">
-			<h2 class="font-bold text-lg">{ movieName }</h2>
-			<div class="flex flex-row gap-1 p-4">
-				<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
-				<div class="modal-action p-6 w-full">
-					<form method="dialog" class="flex flex-col gap-3 flex-grow">
-						<!-- if there is a button, it will close the modal -->
-						<input type="text" placeholder="Where did you watch it?" class="input input-bordered input-primary w-full"/>
-						<textarea class="textarea textarea-primary" placeholder="What did you think about the movie?"></textarea>
-						<div class="flex justify-end gap-2">
-							<button class="btn">Add</button>
-							<button class="btn">Close</button>
-						</div>
-						<div>
-							<h2>Overview</h2>
-							<p>
-								{  description }
-							</p>
-						</div>
-					</form>
+    	</script>
+		<dialog id="add_modal_movie" class="modal">
+			<div class="modal-box w-11/12 max-w-5xl">
+				<h2 class="font-bold text-lg">{ movieName }</h2>
+				<div class="flex flex-row gap-1 p-4">
+					<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
+					<div class="modal-action p-6 w-full">
+						<form method="dialog" class="flex flex-col gap-3 flex-grow">
+							<!-- if there is a button, it will close the modal -->
+							<input type="text" placeholder="Where did you watch it?" class="input input-bordered input-primary w-full"/>
+							<textarea class="textarea textarea-primary" placeholder="What did you think about the movie?"></textarea>
+							<div class="flex justify-end gap-2">
+								<button class="btn">Add</button>
+								<button class="btn" onClick="closeModal(event)">Close</button>
+							</div>
+							<div>
+								<h2>Overview</h2>
+								<p>
+									{  description }
+								</p>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
-		</div>
-	</dialog>
+		</dialog>
+	</div>
 }

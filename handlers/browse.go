@@ -36,3 +36,31 @@ func AddMovieModalHandler() http.HandlerFunc {
 		}
 	}
 }
+
+func SearchForMovieHandler(tmdbClient *tmdb.TmdbClient) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		err := r.ParseForm()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		searchQuery := r.Form.Get("query")
+		var movies []tmdb.TmdbMovie
+		if searchQuery == "" {
+			movies, err = tmdbClient.GetNowPlayingMovies()
+		} else {
+			movies, err = tmdbClient.GetMovies(searchQuery)
+		}
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		component := views.MoviesListContainer(movies)
+		err = component.Render(r.Context(), w)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+
+	}
+}
