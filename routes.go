@@ -21,6 +21,7 @@ func routes(sbClient *supabase.Client, db *db.Queries, tmdbClient *tmdb.TmdbClie
 		authenticated.Get("/addMovieModal", handlers.AddMovieModalHandler())
 		authenticated.Post("/searchMovie", handlers.SearchForMovieHandler(tmdbClient))
 		authenticated.Post("/addMovie", handlers.AddMovieHandler(db))
+		authenticated.Post("/searchMyMovies", handlers.SearchMyMovies(db))
 		authenticated.Get("/myMovies", handlers.MyMoviesHandler(db))
 	})
 
