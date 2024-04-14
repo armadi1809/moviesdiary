@@ -1,11 +1,24 @@
 package views
 
+script underlineTabs() {
+	document.addEventListener("DOMContentLoaded", function() {	
+		const location = window.location.pathname 
+		let element = document.getElementById("home")
+		if (location == "/myMovies") {
+			element = document.getElementById("myMoviesTab")
+		} else if (location == "/browse") {
+			element = document.getElementById("browseTab")
+		}
+		element.classList.add("underline"); })
+}
+
 templ Layout(loggedIn bool) {
 	<html lang="en">
 		<head>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<link href="/public/output.css" rel="stylesheet"/>
+			@underlineTabs()
 			<script src="/public/htmx.min.js"></script>
 			<title>Movies Diary</title>
 		</head>

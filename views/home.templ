@@ -5,8 +5,6 @@ type Movie struct {
 	description string
 }
 
-var movies = []Movie{{name: "fight club", description: "testing desc hereeeee"}, {name: "Monkey Club", description: "watched this on saturday"}}
-
 templ HomePage(name string) {
 	@Layout(name != "") {
 		if len(name) > 0 {

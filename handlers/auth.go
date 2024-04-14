@@ -18,7 +18,6 @@ func HandleAuthCallback(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{
 		Name:     "at",
 		Value:    accessToken,
-		Path:     "/",
 		MaxAge:   3600,
 		HttpOnly: true,
 		Secure:   true,
@@ -27,7 +26,7 @@ func HandleAuthCallback(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("access_token", accessToken)
 	http.SetCookie(w, &cookie)
 
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/myMovies", http.StatusSeeOther)
 }
 
 func GoogleLoginHandler(sbClient *supabase.Client) http.HandlerFunc {
