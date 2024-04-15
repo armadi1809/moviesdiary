@@ -23,8 +23,10 @@ func routes(sbClient *supabase.Client, db *db.Queries, tmdbClient *tmdb.TmdbClie
 		authenticated.Post("/addMovie", handlers.AddMovieHandler(db))
 		authenticated.Post("/searchMyMovies", handlers.SearchMyMovies(db))
 		authenticated.Get("/myMovies", handlers.MyMoviesHandler(db))
+		authenticated.Get("/login", handlers.LoginPageHandler())
 	})
-
+	r.Get("/logout", handlers.HandleLogout)
+	r.Get("/login", handlers.LoginPageHandler())
 	r.Get("/login/google", handlers.GoogleLoginHandler(sbClient))
 	r.Get("/auth/callback", handlers.HandleAuthCallback)
 	r.Handle("/public/*", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))

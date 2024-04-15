@@ -10,9 +10,9 @@ templ Navbar(loggedIn bool) {
 				if loggedIn {
 					<li><p><a id="myMoviesTab" href="/myMovies">My Movies</a></p></li>
 					<li><p><a id="browseTab" href="/browse">Browse</a></p></li>
-					<li><p>Logout</p></li>
+					<li><p><a id="logoutLink" href="/logout">Logout</a></p></li>
 				} else {
-					<li>Login</li>
+					<li><p><a id="loginTab" href="/login">Login</a></p></li>
 				}
 			</ul>
 		</div>
