@@ -4,7 +4,7 @@ import "github.com/armadi1809/moviesdiary/tmdb"
 import "fmt"
 
 templ MovieCard(name, description, posterPath string, isAdd bool) {
-	<div class="card card-compact w-96 bg-base-100 shadow-xl">
+	<div class="card card-compact w-96 h-[800px] bg-base-100 shadow-xl">
 		<figure><img src={ tmdb.PosterBasePath + posterPath } alt="Shoes"/></figure>
 		<div class="card-body">
 			if (len(description) > 300) {

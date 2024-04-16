@@ -28,22 +28,18 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 				</div>
 			</div>
 			<div
-				class="absolute my-rotate-y-180 backface-hidden w-96 h-full bg-gray-100 overflow-hidden"
+				class="absolute my-rotate-y-180 backface-hidden w-96 h-full bg-transparent overflow-hidden"
 			>
-				<div
-					class="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
-				>
-					<h1 class="text-3xl font-semibold">{ name }</h1>
-					<p class="my-2">Date Watched: { dateWatched }</p>
-					<p class="my-2">Location: { locationWatched }</p>
-					<p>
-						{ diary }
-					</p>
-					<button
-						class="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
-					>
-						Edit Diary	
-					</button>
+				<div class="card w-96 h-full shadow-xl bg-primary text-primary-content">
+					<div class="card-body">
+						<h2 class="card-title">{ name }</h2>
+						<p><span class="text-base-content">Location:</span> { locationWatched }</p>
+						<p><span class="text-base-content">Date Watched:</span> { dateWatched } </p>
+						<p><span class="text-base-content">Diary:</span> { diary }</p>
+						<div class="card-actions justify-end">
+							<button class="btn">Edit My Diary</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

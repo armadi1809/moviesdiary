@@ -1,11 +1,18 @@
 package views 
 
 import "github.com/armadi1809/moviesdiary/db"
+import "time"
+import "fmt"
 
 templ MyMoviesListContainer(movies []db.Movie) {
 	<div id="myMoviesListContainer" class="grid grid-cols-3 justify-items-center gap-2 mx-auto container">
 		for _, movie := range movies {
-			@MyMovieCard(movie.Name, movie.Description, movie.PosterUrl, movie.Diary, movie.WatchedDate.String(), movie.LocationWatched)
+			@MyMovieCard(movie.Name, movie.Description, movie.PosterUrl, movie.Diary, getDateString(movie.WatchedDate), movie.LocationWatched)
 		}
 	</div>
+}
+
+func getDateString(date time.Time) string {
+	year, month, day := date.Date()
+	return fmt.Sprintf("Date: %d-%02d-%02d\n", year, month, day)
 }
