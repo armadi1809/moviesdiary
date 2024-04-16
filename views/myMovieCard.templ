@@ -1,0 +1,51 @@
+package views 
+
+import "github.com/armadi1809/moviesdiary/tmdb"
+import "fmt"
+
+templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatched string) {
+	<div
+		class="w-96 h-[800px] bg-transparent cursor-pointer group perspective"
+	>
+		<div
+			class="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
+		>
+			<div class="absolute backface-hidden w-full h-full">
+				<div class="card card-compact w-96 h-[800px] bg-base-100 shadow-xl">
+					<figure><img src={ tmdb.PosterBasePath + posterPath } alt="Shoes"/></figure>
+					<div class="card-body">
+						if (len(description) > 300) {
+							<h2 class="card-title">{ name }</h2>
+							<p>{ description[:300] + "..." }</p>
+						} else {
+							<h2 class="card-title">{ name }</h2>
+							<p>{ description }</p>
+						}
+						<div class="card-actions justify-end">
+							<button hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Edit My Diary</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="absolute my-rotate-y-180 backface-hidden w-96 h-full bg-gray-100 overflow-hidden"
+			>
+				<div
+					class="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
+				>
+					<h1 class="text-3xl font-semibold">{ name }</h1>
+					<p class="my-2">Date Watched: { dateWatched }</p>
+					<p class="my-2">Location: { locationWatched }</p>
+					<p>
+						{ diary }
+					</p>
+					<button
+						class="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
+					>
+						Edit Diary	
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
