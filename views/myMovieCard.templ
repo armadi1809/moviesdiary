@@ -31,12 +31,20 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 				class="absolute my-rotate-y-180 backface-hidden w-96 h-full bg-transparent overflow-hidden"
 			>
 				<div class="card w-96 h-full shadow-xl bg-primary text-primary-content">
-					<div class="card-body">
-						<h2 class="card-title">{ name }</h2>
-						<p><span class="text-base-content">Location:</span> { locationWatched }</p>
-						<p><span class="text-base-content">Date Watched:</span> { dateWatched } </p>
-						<p><span class="text-base-content">Diary:</span> { diary }</p>
-						<div class="card-actions justify-end">
+					<div class="card-body justify-between">
+						<div class="">
+							<div class="flex justify-center items-center">
+								<img src={ tmdb.PosterBasePath + posterPath } alt="" class="h-64 "/>
+							</div>
+							<h2 class="card-title text-3xl">{ name }</h2>
+							<h3 class="text-base-content text-2xl font-bold">Location:</h3>
+							<p class="text-xl">{ locationWatched }</p>
+							<h3 class="text-base-content text-2xl font-bold">Date Watched:</h3>
+							<p class="text-xl">{ dateWatched } </p>
+							<h3 class="text-base-content text-2xl font-bold">Diary:</h3>
+							<p class="text-xl max-h-56 overflow-auto">{ diary }</p>
+						</div>
+						<div class="card-actions justify-end ">
 							<button class="btn">Edit My Diary</button>
 						</div>
 					</div>
