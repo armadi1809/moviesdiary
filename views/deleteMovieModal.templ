@@ -1,0 +1,23 @@
+
+package views
+
+import "fmt"
+
+templ DeleteMovieModal(movieName, movieId string) {
+	<div id="movie-modal-containter">
+		<script>
+	add_modal_movie.showModal()
+    	</script>
+		<dialog id="add_modal_movie" class="modal">
+			<div class="modal-box w-11/12 max-w-5xl">
+				<form id="deleteForm" method="dialog" hx-post={ fmt.Sprintf("/deleteMovie?movieId=%s", movieId) } hx-target="#deleteForm" hx-swap="innerHTML" class="flex flex-col gap-3 flex-grow">
+					<h2 class="font-bold text-lg">Are you sure you want to delete { movieName } from your diary?</h2>
+					<div class="flex justify-end gap-2">
+						<button class="btn">Delete</button>
+						<button class="btn" onClick="closeModal(event)">Close</button>
+					</div>
+				</form>
+			</div>
+		</dialog>
+	</div>
+}

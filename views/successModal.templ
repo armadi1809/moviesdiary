@@ -1,9 +1,30 @@
 package views
 
 templ SuccessfullAdditionMessage(name string) {
-	<p>Successuflly added { name } to your list of watched movies</p>
+	<div id="inputsContainer">
+		<div class="flex flex-col gap-3">
+			<p>Successfully Added { name } to your diary</p>
+		</div>
+		<div class="flex justify-end gap-2">
+			<button class="btn" onClick="closeModal(event)">Close</button>
+		</div>
+	</div>
 }
 
 templ SuccessfullEditMessage(name string) {
-	<p>Successuflly Edited your diary for { name }</p>
+	<div id="inputsContainer">
+		<div class="flex flex-col gap-3">
+			<p>Successfully Edited your diary for { name }</p>
+		</div>
+		<div class="flex justify-end gap-2">
+			<button class="btn" onClick="closeModal(event)">Close</button>
+		</div>
+	</div>
+}
+
+templ SuccessfullDeleteMessage() {
+	<h2 id="confirmationMsg" class="font-bold text-lg">Successfully deleted movie from your diary</h2>
+	<div class="flex justify-end gap-2">
+		<button class="btn" onClick="closeModal(event)">Close</button>
+	</div>
 }

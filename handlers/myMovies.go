@@ -141,3 +141,40 @@ func EditMovieModalHandler() http.HandlerFunc {
 		}
 	}
 }
+func DeleteMovieHandler(queries *db.Queries) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		movieId, err := strconv.Atoi(r.URL.Query().Get("movieId"))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("Invalid Movie Id"))
+			return
+		}
+		err = queries.DeleteMovie(r.Context(), int64(movieId))
+		if err != nil {
+			w.Header().Set("HX-Reswap", "none")
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("An Error ocurred when deleting movie from db"))
+			return
+		}
+
+		w.Header().Set("HX-Trigger", "editMovie")
+		component := views.SuccessfullDeleteMessage()
+		err = component.Render(r.Context(), w)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+
+	}
+}
+
+func DeleteMovieModalHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		movieName := r.URL.Query().Get("movieName")
+		movieId := r.URL.Query().Get("movieId")
+		component := views.DeleteMovieModal(movieName, movieId)
+		err := component.Render(r.Context(), w)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
+	}
+}

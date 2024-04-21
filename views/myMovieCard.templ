@@ -46,6 +46,7 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 						</div>
 						<div class="card-actions justify-end ">
 							<button class="btn" hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s&locationWatched=%s&dateWatched=%s&diary=%s&movieId=%s", name, posterPath, description, locationWatched, dateWatched, diary, movieId) } hx-target="body" hx-swap="beforeend">Edit My Diary</button>
+							<button class="btn btn-ghost" hx-get={ fmt.Sprintf("/deleteMovieModal?movieName=%s&movieId=%s", name, movieId) } hx-target="body" hx-swap="beforeend">Delete Diary</button>
 						</div>
 					</div>
 				</div>

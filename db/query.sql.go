@@ -77,6 +77,16 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	return i, err
 }
 
+const deleteMovie = `-- name: DeleteMovie :exec
+DELETE FROM movies 
+WHERE id = $1
+`
+
+func (q *Queries) DeleteMovie(ctx context.Context, id int64) error {
+	_, err := q.db.ExecContext(ctx, deleteMovie, id)
+	return err
+}
+
 const editMovie = `-- name: EditMovie :one
 UPDATE movies 
 SET "locationWatched" = $2,

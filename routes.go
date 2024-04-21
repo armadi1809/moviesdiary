@@ -26,6 +26,8 @@ func routes(sbClient *supabase.Client, db *db.Queries, tmdbClient *tmdb.TmdbClie
 		authenticated.Post("/searchMyMovies", handlers.SearchMyMovies(db))
 		authenticated.Get("/myMovies", handlers.MyMoviesHandler(db))
 		authenticated.Get("/login", handlers.LoginPageHandler())
+		authenticated.Post("/deleteMovie", handlers.DeleteMovieHandler(db))
+		authenticated.Get("/deleteMovieModal", handlers.DeleteMovieModalHandler())
 
 	})
 	r.Get("/", handlers.HomeHandler())

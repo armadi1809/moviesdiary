@@ -30,3 +30,7 @@ SET "locationWatched" = $2,
     "watchedDate" = $4 
 WHERE id = $1 
 RETURNING *;
+
+-- name: DeleteMovie :exec
+DELETE FROM movies 
+WHERE id = $1;
