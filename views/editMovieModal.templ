@@ -1,0 +1,43 @@
+package views 
+
+import "github.com/armadi1809/moviesdiary/tmdb"
+import "fmt"
+
+templ EditModalMovie(movieName, posterUrl, description, locationWatched, dateWatched, diary, movieId string) {
+	<div id="movie-modal-containter">
+		<script>
+        add_modal_movie.showModal()
+    	</script>
+		<dialog id="add_modal_movie" class="modal">
+			<div class="modal-box w-11/12 max-w-5xl">
+				<h2 class="font-bold text-lg">{ movieName }</h2>
+				<div class="flex flex-row gap-1 p-4">
+					<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
+					<div class="modal-action p-6 w-full">
+						<form method="dialog" hx-post={ fmt.Sprintf("/editMovie?ocationWatched=%s&dateWatched=%s&diary=%s&movieId=%s", locationWatched, dateWatched, diary, movieId) } hx-target="#inputsContainer" hx-swap="outerHTML" class="flex flex-col gap-3 flex-grow">
+							<!-- if there is a button, it will close the modal -->
+							<div id="inputsContainer" class="flex flex-col gap-3">
+								<label for="locationWatched">Where did you watch { movieName }?</label>
+								<input id="locationWatched" value={ locationWatched } name="locationWatched" type="text" placeholder="Home, Movie Theater, etc.." class="input input-bordered input-primary w-full"/>
+								<label for="dateWatched">When did you watch { movieName }?</label>
+								<input id="dateWatched" value={ dateWatched } name="dateWatched" type="date" placeholder="When did you watche it?" class="input input-bordered input-primary w-full"/>
+								<label for="diary">What did you think about { movieName }?</label>
+								<textarea name="diary" class="textarea textarea-primary" placeholder="Your thoughts about the movie..">{ diary }</textarea>
+							</div>
+							<div class="flex justify-end gap-2">
+								<button class="btn">Edit</button>
+								<button class="btn" onClick="closeModal(event)">Close</button>
+							</div>
+							<div>
+								<h2>Overview</h2>
+								<p>
+									{  description }
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</dialog>
+	</div>
+}

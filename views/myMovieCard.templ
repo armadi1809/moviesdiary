@@ -3,7 +3,7 @@ package views
 import "github.com/armadi1809/moviesdiary/tmdb"
 import "fmt"
 
-templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatched string) {
+templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatched, movieId string) {
 	<div
 		class="w-96 h-[800px] bg-transparent cursor-pointer group perspective"
 	>
@@ -22,7 +22,7 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 							<p>{ description }</p>
 						}
 						<div class="card-actions justify-end">
-							<button hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Edit My Diary</button>
+							<button hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Hover For Full Diary</button>
 						</div>
 					</div>
 				</div>
@@ -45,7 +45,7 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 							<p class="text-xl max-h-56 overflow-auto">{ diary }</p>
 						</div>
 						<div class="card-actions justify-end ">
-							<button class="btn">Edit My Diary</button>
+							<button class="btn" hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s&locationWatched=%s&dateWatched=%s&diary=%s&movieId=%s", name, posterPath, description, locationWatched, dateWatched, diary, movieId) } hx-target="body" hx-swap="beforeend">Edit My Diary</button>
 						</div>
 					</div>
 				</div>

@@ -22,3 +22,11 @@ INSERT INTO movies (
   $1, $2, $3, $4, $5, $6, $7, $8
 )
 RETURNING *;
+
+-- name: EditMovie :one 
+UPDATE movies 
+SET "locationWatched" = $2,
+    diary = $3,
+    "watchedDate" = $4 
+WHERE id = $1 
+RETURNING *;

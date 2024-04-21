@@ -77,6 +77,44 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 	return i, err
 }
 
+const editMovie = `-- name: EditMovie :one
+UPDATE movies 
+SET "locationWatched" = $2,
+    diary = $3,
+    "watchedDate" = $4 
+WHERE id = $1 
+RETURNING id, user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate"
+`
+
+type EditMovieParams struct {
+	ID              int64
+	LocationWatched string 
+	Diary           string
+	WatchedDate     time.Time
+}
+
+func (q *Queries) EditMovie(ctx context.Context, arg EditMovieParams) (Movie, error) {
+	row := q.db.QueryRowContext(ctx, editMovie,
+		arg.ID,
+		arg.LocationWatched,
+		arg.Diary,
+		arg.WatchedDate,
+	)
+	var i Movie
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Name,
+		&i.WatchedDate,
+		&i.PosterUrl,
+		&i.Diary,
+		&i.Description,
+		&i.LocationWatched,
+		&i.ReleaseDate,
+	)
+	return i, err
+}
+
 const getMoviesForUser = `-- name: GetMoviesForUser :many
 SELECT id, user_id, name, "watchedDate", "posterUrl", diary, description, "locationWatched", "releaseDate" FROM movies 
 where user_id = $1
