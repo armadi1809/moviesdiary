@@ -9,9 +9,8 @@ import (
 func HomeHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		user := getUserFromRequest(r)
-		component := views.HomePage(user.Name)
+		component := views.LandingPage(user.Name != "")
 		err := component.Render(r.Context(), w)
-
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 		}

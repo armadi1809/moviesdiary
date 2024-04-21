@@ -1,0 +1,24 @@
+package views 
+
+templ LandingPage(loggedIn bool) {
+	@Layout(loggedIn) {
+		<div class="hero mt-4">
+			<div class="hero-content flex-col lg:flex-row lg:items-center lg:justify-start">
+				<div>
+					<h1 class="text-5xl font-bold">Movies Diary: <span class="text-primary">Where Every Film Leaves Its Imprint</span></h1>
+					<p class="py-6">The number one stop to document your movie memoirs</p>
+					<a href="/login" class="btn btn-primary">Get Started</a>
+				</div>
+				<img src="/public/movies-bg.jpg" class="max-w-xl rounded-lg shadow-2xl"/>
+			</div>
+		</div>
+		<div class="hero mt-20">
+			<div class="hero-content text-center">
+				<div class="max-w-2xl flex flex-col items-center justify-center gap-3">
+					<h1 class="text-5xl font-bold">Choose from a collection of <span class="text-primary">millions of movies </span> <br/> Powered By</h1>
+					<img src="/public/tmdbLogo.svg" class="max-w-xs rounded-lg shadow-2xl"/>
+				</div>
+			</div>
+		</div>
+	}
+}

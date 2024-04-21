@@ -12,21 +12,36 @@ import (
 
 type userInfoKey string
 
-func WithAuth(sbClient *supabase.Client, queries *db.Queries) func(next http.Handler) http.Handler {
+func WithAuth() func(next http.Handler) http.Handler {
+
+	return func(next http.Handler) http.Handler {
+		fn := func(w http.ResponseWriter, r *http.Request) {
+			user := getUserFromRequest(r)
+			if user.Name == "" {
+				http.Redirect(w, r, "/login", http.StatusTemporaryRedirect)
+				return
+			}
+			next.ServeHTTP(w, r)
+		}
+		return http.HandlerFunc(fn)
+	}
+
+}
+func WithUser(sbClient *supabase.Client, queries *db.Queries) func(next http.Handler) http.Handler {
 
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
 			cookie, err := r.Cookie("at")
 			if err != nil {
 				fmt.Printf("An error occurred getting the cookie in with auth %v", err)
-				http.Redirect(w, r, "/login", http.StatusTemporaryRedirect)
+				next.ServeHTTP(w, r)
 				return
 			}
 			accessToken := cookie.Value
 			user, err := sbClient.Auth.User(r.Context(), accessToken)
 			if err != nil {
 				fmt.Printf("Could not authenticate user with google %v", err)
-				http.Redirect(w, r, "/login", http.StatusTemporaryRedirect)
+				next.ServeHTTP(w, r)
 				return
 			}
 			userDb, err := queries.GetUser(r.Context(), user.Email)

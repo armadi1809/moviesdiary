@@ -56,6 +56,11 @@ func GoogleLoginHandler(sbClient *supabase.Client) http.HandlerFunc {
 }
 func LoginPageHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		user := getUserFromRequest(r)
+		if user.Name != "" {
+			http.Redirect(w, r, "/myMovies", http.StatusSeeOther)
+			return
+		}
 		err := views.Login().Render(r.Context(), w)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
