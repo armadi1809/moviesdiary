@@ -25,7 +25,7 @@ func DeleteMovieModal(movieName, movieId string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"movie-modal-containter\"><script>\n\tadd_modal_movie.showModal()\n    \t</script><dialog id=\"add_modal_movie\" class=\"modal\"><div class=\"modal-box w-11/12 max-w-5xl\"><form id=\"deleteForm\" method=\"dialog\" hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"movie-modal-containter\"><script>\n\t\tadd_modal_movie.showModal()\n    \t</script><dialog id=\"add_modal_movie\" class=\"modal\"><div class=\"modal-box w-11/12 max-w-5xl\"><form id=\"deleteForm\" method=\"dialog\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

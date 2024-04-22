@@ -11,7 +11,7 @@ templ AddModalMovie(movieName, posterUrl, description string) {
 		<dialog id="add_modal_movie" class="modal">
 			<div class="modal-box w-11/12 max-w-5xl">
 				<h2 class="font-bold text-lg">{ movieName }</h2>
-				<div class="flex flex-row gap-1 p-4">
+				<div class="flex flex-col md:flex-row gap-1 p-4">
 					<img src={ tmdb.PosterBasePath + posterUrl } alt="Poster image currently not available"/>
 					<div class="modal-action p-6 w-full">
 						<form method="dialog" hx-post={ fmt.Sprintf("/addMovie?movieName=%s&posterUrl=%s&description=%s", movieName, posterUrl, description) } hx-target="#inputsContainer" hx-swap="outerHTML" class="flex flex-col gap-3 flex-grow">

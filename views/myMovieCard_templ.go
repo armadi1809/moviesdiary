@@ -185,7 +185,7 @@ func MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatc
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"body\" hx-swap=\"beforeend\">Delete Diary</button></div></div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#add_modal_movie\" hx-swap=\"outerHTML\">Delete Diary</button></div></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
