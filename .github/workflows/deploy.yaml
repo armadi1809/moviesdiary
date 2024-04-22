@@ -40,7 +40,7 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          scp  -o StrictHostKeyChecking=no -r moviesDiary ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_HOST }}:./moviesDiary.new
+          scp  -o StrictHostKeyChecking=no -r moviesDiary ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_SERVER }}:./moviesDiary.new
           ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_HOST }} << 'ENDSSH'
             echo "** restarting service tof apply new version **"
             sudo service moviesDiary stop
