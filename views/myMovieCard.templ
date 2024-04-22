@@ -12,7 +12,7 @@ templ MyMovieCard(name, description, posterPath, diary, dateWatched, locationWat
 		>
 			<div class="absolute backface-hidden w-full h-full">
 				<div class="card card-compact w-96 h-[800px] bg-base-100 shadow-xl">
-					<figure><img src={ tmdb.PosterBasePath + posterPath } alt="Shoes"/></figure>
+					<figure class="h-[500px]"><img class="" src={ tmdb.PosterBasePath + posterPath } alt="Poster image currently not available"/></figure>
 					<div class="card-body">
 						if (len(description) > 300) {
 							<h2 class="card-title">{ name }</h2>

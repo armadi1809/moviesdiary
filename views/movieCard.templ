@@ -5,7 +5,7 @@ import "fmt"
 
 templ MovieCard(name, description, posterPath string, isAdd bool) {
 	<div class="card card-compact w-96 h-[800px] bg-base-100 shadow-xl">
-		<figure><img src={ tmdb.PosterBasePath + posterPath } alt="Shoes"/></figure>
+		<figure><img class="h-[500px]" src={ tmdb.PosterBasePath + posterPath } alt="Poster image currently not available"/></figure>
 		<div class="card-body">
 			if (len(description) > 300) {
 				<h2 class="card-title">{ name }</h2>

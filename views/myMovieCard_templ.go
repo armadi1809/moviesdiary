@@ -26,7 +26,7 @@ func MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatc
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-96 h-[800px] bg-transparent cursor-pointer group perspective\"><div class=\"relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000\"><div class=\"absolute backface-hidden w-full h-full\"><div class=\"card card-compact w-96 h-[800px] bg-base-100 shadow-xl\"><figure><img src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-96 h-[800px] bg-transparent cursor-pointer group perspective\"><div class=\"relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000\"><div class=\"absolute backface-hidden w-full h-full\"><div class=\"card card-compact w-96 h-[800px] bg-base-100 shadow-xl\"><figure class=\"h-[500px]\"><img class=\"\" src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -34,7 +34,7 @@ func MyMovieCard(name, description, posterPath, diary, dateWatched, locationWatc
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Shoes\"></figure><div class=\"card-body\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Poster image currently not available\"></figure><div class=\"card-body\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -12,7 +12,7 @@ templ EditModalMovie(movieName, posterUrl, description, locationWatched, dateWat
 			<div class="modal-box w-11/12 max-w-5xl">
 				<h2 class="font-bold text-lg">{ movieName }</h2>
 				<div class="flex flex-row gap-1 p-4">
-					<img src={ tmdb.PosterBasePath + posterUrl } alt="Shoes"/>
+					<img src={ tmdb.PosterBasePath + posterUrl } alt="Poster image currently not available"/>
 					<div class="modal-action p-6 w-full">
 						<form method="dialog" hx-post={ fmt.Sprintf("/editMovie?ocationWatched=%s&dateWatched=%s&diary=%s&movieId=%s", locationWatched, dateWatched, diary, movieId) } hx-target="#inputsContainer" hx-swap="outerHTML" class="flex flex-col gap-3 flex-grow">
 							<!-- if there is a button, it will close the modal -->
