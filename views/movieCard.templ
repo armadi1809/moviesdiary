@@ -16,7 +16,7 @@ templ MovieCard(name, description, posterPath string, isAdd bool) {
 			}
 			<div class="card-actions justify-end">
 				if (isAdd) {
-					<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Add To Diary</button>
+					<button hx-get={ fmt.Sprintf("/addMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="#add_modal_movie" hx-swap="outerHTML" class="btn btn-primary">Add To Diary</button>
 				} else {
 					<button hx-get={ fmt.Sprintf("/editMovieModal?movieName=%s&posterUrl=%s&description=%s", name, posterPath, description) } hx-target="body" hx-swap="beforeend" class="btn btn-primary">Edit My Diary</button>
 				}

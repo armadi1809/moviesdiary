@@ -13,5 +13,6 @@ templ BrowsePage(loggedIn bool, movies []tmdb.TmdbMovie) {
 			</div>
 		</form>
 		@MoviesListContainer(movies)
+		<dialog id="add_modal_movie" class="modal"></dialog>
 	}
 }

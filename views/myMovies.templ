@@ -20,5 +20,6 @@ templ MyMoviesPage(loggedIn bool, movies []db.Movie) {
 			</label>
 		</div>
 		@MyMoviesListContainer(movies)
+		<dialog id="add_modal_movie" class="modal"></dialog>
 	}
 }
