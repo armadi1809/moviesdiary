@@ -16,7 +16,7 @@ jobs:
           go-version: 1.22
 
       - name: Build it
-        run: go mod tidy && GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o moviesDiary ./*.go
+        run: go mod tidy && GOOS=linux GOARCH=amd64 go build -o moviesDiary ./*.go
 
       - uses: actions/upload-artifact@v4
         with:
