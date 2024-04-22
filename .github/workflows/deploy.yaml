@@ -13,12 +13,20 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: "1.22.1"
+      - name: update tailwindcss
+        uses: ZoeyVid/tailwindcss-update@main
+        with:
+          input: css/input.css
+          output: public/output.css
+          params: "--minify"
       - name: Build
         run: go build -v -o moviesDiary
       - uses: actions/upload-artifact@v4
         with:
           name: binary-artifact
-          path: ./moviesDiary
+          path: |
+            ./moviesDiary
+            public/
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,11 +49,13 @@ jobs:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           scp  -o StrictHostKeyChecking=no -r moviesDiary ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_SERVER }}:./moviesDiary.new
+          scp  -o StrictHostKeyChecking=no -r public ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_SERVER }}:./publicNew
           ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_SERVER }} << 'ENDSSH'
             echo "** restarting service tof apply new version **"
             sudo service moviesDiary stop
             echo "** service stopped **"
             mv moviesDiary.new moviesDiary
+            mv publicNew public
             chmod +x moviesDiary
             sudo service moviesDiary start
             echo "** service started **"
