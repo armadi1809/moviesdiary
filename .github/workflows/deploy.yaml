@@ -1,0 +1,56 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Build it
+        run: GOOS=linux GOARCH=amd64 go build -o moviesDiary ./*.go
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: binary-artifact
+          path: ./moviesDiary
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: binary-artifact
+      - name: Adding private SSH key to ssh-agent
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: scp binary to GCE and apply latest version
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          scp  -o StrictHostKeyChecking=no -r moviesDiary ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_HOST }}:./moviesDiary.new
+          ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USERNAME }}@${{ secrets.PRODUCTION_HOST }} << 'ENDSSH'
+            echo "** restarting service tof apply new version **"
+            sudo service moviesDiary stop
+            echo "** service stopped **"
+            mv moviesDiary.new moviesDiary
+            chmod +x moviesDiary
+            sudo service moviesDiary start
+            echo "** service started **"
+            ps -ef |grep moviesDiary
+          ENDSSH
