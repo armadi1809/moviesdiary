@@ -15,7 +15,7 @@ jobs:
         with:
           go-version: 1.22.1
       - name: Build
-        run: GOOS=linux GOARCH=amd64 go build -o moviesDiary
+        run: go mod init github.com/armadi1809/moviesdiary && GOOS=linux GOARCH=amd64 go build -o moviesDiary
       - uses: actions/upload-artifact@v4
         with:
           name: binary-artifact
