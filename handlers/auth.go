@@ -46,7 +46,7 @@ func GoogleLoginHandler(sbClient *supabase.Client) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		resp, err := sbClient.Auth.SignInWithProvider(supabase.ProviderSignInOptions{
 			Provider:   "google",
-			RedirectTo: "http://localhost:3000/auth/callback",
+			RedirectTo: "https://moviesdiary.xyz/auth/callback",
 		})
 		if err != nil {
 			fmt.Println("Error ocurred")
