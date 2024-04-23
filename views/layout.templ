@@ -30,8 +30,8 @@ templ Layout(loggedIn bool) {
 			document.getElementById("add_modal_movie").close()
 		}
 		</script>
-		<body class="">
-			<div class="mx-auto container min-h-screen">
+		<body class="max-w-[100%] overflow-x-hidden">
+			<div class="container mx-auto min-h-screen">
 				@Navbar(loggedIn)
 				{ children... }
 			</div>

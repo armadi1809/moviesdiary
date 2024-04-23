@@ -51,7 +51,7 @@ func Layout(loggedIn bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"/public/htmx.min.js\"></script><title>Movies Diary</title></head><script>\n\t\tfunction closeModal(event) {\n\t\t\tevent.preventDefault()\n\t\t\tdocument.getElementById(\"add_modal_movie\").close()\n\t\t}\n\t\t</script><body class=\"\"><div class=\"mx-auto container min-h-screen\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"/public/htmx.min.js\"></script><title>Movies Diary</title></head><script>\n\t\tfunction closeModal(event) {\n\t\t\tevent.preventDefault()\n\t\t\tdocument.getElementById(\"add_modal_movie\").close()\n\t\t}\n\t\t</script><body class=\"max-w-[100%] overflow-x-hidden\"><div class=\"container mx-auto min-h-screen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

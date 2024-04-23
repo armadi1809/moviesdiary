@@ -1,12 +1,24 @@
 package views 
 
 templ Navbar(loggedIn bool) {
-	<div class="navbar bg-base-100">
-		<div class="flex-1">
+	<div class="navbar bg-base-100 justify-between">
+		<div class="">
 			<a href="/" class="btn btn-ghost text-xl" id="home">Movies Diary</a>
 		</div>
-		<div class="flex-none">
-			<ul class="menu menu-horizontal px-1">
+		<div class="dropdown dropdown-end md:hidden">
+			<div tabindex="0" role="button" class="btn btn-ghost rounded-btn"><img src="/public/hamburger.svg" class="w-5" alt="Menu"/></div>
+			<ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+				if loggedIn {
+					<li><p><a id="myMoviesTab" href="/myMovies">My Movies</a></p></li>
+					<li><p><a id="browseTab" href="/browse">Browse</a></p></li>
+					<li><p><a id="logoutLink" href="/logout">Logout</a></p></li>
+				} else {
+					<li><p><a id="loginTab" href="/login">Login</a></p></li>
+				}
+			</ul>
+		</div>
+		<div class="hidden md:block">
+			<ul class="menu menu-horizontal px-1 gap-0">
 				if loggedIn {
 					<li><p><a id="myMoviesTab" href="/myMovies">My Movies</a></p></li>
 					<li><p><a id="browseTab" href="/browse">Browse</a></p></li>

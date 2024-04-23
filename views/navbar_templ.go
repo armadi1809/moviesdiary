@@ -23,7 +23,22 @@ func Navbar(loggedIn bool) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"navbar bg-base-100\"><div class=\"flex-1\"><a href=\"/\" class=\"btn btn-ghost text-xl\" id=\"home\">Movies Diary</a></div><div class=\"flex-none\"><ul class=\"menu menu-horizontal px-1\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"navbar bg-base-100 justify-between\"><div class=\"\"><a href=\"/\" class=\"btn btn-ghost text-xl\" id=\"home\">Movies Diary</a></div><div class=\"dropdown dropdown-end md:hidden\"><div tabindex=\"0\" role=\"button\" class=\"btn btn-ghost rounded-btn\"><img src=\"/public/hamburger.svg\" class=\"w-5\" alt=\"Menu\"></div><ul tabindex=\"0\" class=\"menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if loggedIn {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><p><a id=\"myMoviesTab\" href=\"/myMovies\">My Movies</a></p></li><li><p><a id=\"browseTab\" href=\"/browse\">Browse</a></p></li><li><p><a id=\"logoutLink\" href=\"/logout\">Logout</a></p></li>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><p><a id=\"loginTab\" href=\"/login\">Login</a></p></li>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></div><div class=\"hidden md:block\"><ul class=\"menu menu-horizontal px-1 gap-0\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
