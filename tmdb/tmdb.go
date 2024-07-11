@@ -60,7 +60,7 @@ func (c *TmdbClient) GetNowPlayingMovies() ([]TmdbMovie, error) {
 }
 
 func (c *TmdbClient) GetMovies(query string) ([]TmdbMovie, error) {
-	request, err := http.NewRequest("GET", baseUri+"/search/movie", nil)
+	request, err := http.NewRequest("GET", baseUri+"search/movie", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,6 @@ func (c *TmdbClient) GetMovies(query string) ([]TmdbMovie, error) {
 	}{
 		Results: []TmdbMovie{},
 	}
-
 	json.Unmarshal(body, &res)
 
 	return res.Results, nil
