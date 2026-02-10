@@ -8,33 +8,23 @@ import (
 	"github.com/armadi1809/moviesdiary/tmdb"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/nedpals/supabase-go"
 )
 
-func routes(sbClient *supabase.Client, db *db.Queries, tmdbClient *tmdb.TmdbClient) http.Handler {
+func routes(db *db.Queries, tmdbClient *tmdb.TmdbClient) http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-	r.Use(handlers.WithUser(sbClient, db))
-	r.Group(func(authenticated chi.Router) {
-		authenticated.Use(handlers.WithAuth())
-		authenticated.Get("/browse", handlers.BrowseHandler(tmdbClient))
-		authenticated.Get("/addMovieModal", handlers.AddMovieModalHandler())
-		authenticated.Get("/editMovieModal", handlers.EditMovieModalHandler())
-		authenticated.Post("/searchMovie", handlers.SearchForMovieHandler(tmdbClient))
-		authenticated.Post("/addMovie", handlers.AddMovieHandler(db))
-		authenticated.Post("/editMovie", handlers.EditMovieHandler(db))
-		authenticated.Post("/searchMyMovies", handlers.SearchMyMovies(db))
-		authenticated.Get("/myMovies", handlers.MyMoviesHandler(db))
-		authenticated.Get("/login", handlers.LoginPageHandler())
-		authenticated.Post("/deleteMovie", handlers.DeleteMovieHandler(db))
-		authenticated.Get("/deleteMovieModal", handlers.DeleteMovieModalHandler())
-
-	})
+	r.Use(handlers.WithLocalUser(db))
+	r.Get("/browse", handlers.BrowseHandler(tmdbClient))
+	r.Get("/addMovieModal", handlers.AddMovieModalHandler())
+	r.Get("/editMovieModal", handlers.EditMovieModalHandler())
+	r.Post("/searchMovie", handlers.SearchForMovieHandler(tmdbClient))
+	r.Post("/addMovie", handlers.AddMovieHandler(db))
+	r.Post("/editMovie", handlers.EditMovieHandler(db))
+	r.Post("/searchMyMovies", handlers.SearchMyMovies(db))
+	r.Get("/myMovies", handlers.MyMoviesHandler(db))
+	r.Post("/deleteMovie", handlers.DeleteMovieHandler(db))
+	r.Get("/deleteMovieModal", handlers.DeleteMovieModalHandler())
 	r.Get("/", handlers.HomeHandler())
-	r.Get("/logout", handlers.HandleLogout)
-	r.Get("/login", handlers.LoginPageHandler())
-	r.Get("/login/google", handlers.GoogleLoginHandler(sbClient))
-	r.Get("/auth/callback", handlers.HandleAuthCallback)
 	r.Handle("/public/*", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
 	return r
 }

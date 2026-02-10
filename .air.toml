@@ -3,7 +3,7 @@ tmp_dir = "tmp"
 
 [build]
   bin = "./tmp/main"
-  cmd = "tailwindcss -i ./css/input.css -o ./public/output.css && templ generate && go build -o ./tmp/main"
+  cmd = "./node_modules/.bin/tailwindcss -i ./css/input.css -o ./public/output.css && templ generate && go build -o ./tmp/main"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor"]
   exclude_file = []

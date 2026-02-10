@@ -96,7 +96,7 @@ func AddMovieHandler(queries *db.Queries) http.HandlerFunc {
 			Description:     r.URL.Query().Get("description"),
 			Diary:           r.Form.Get("diary"),
 			LocationWatched: r.Form.Get("locationWatched"),
-			WatchedDate:     dateWatched,
+			WatchedDate:     db.Date(dateWatched),
 		}
 
 		movie, err := queries.CreateMovie(r.Context(), params)

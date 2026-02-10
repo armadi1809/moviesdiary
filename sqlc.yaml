@@ -1,10 +1,14 @@
 version: "2"
 sql:
-  - engine: "postgresql"
+  - engine: "sqlite"
     queries: "sqlc/query.sql"
     schema: "sqlc/schema.sql"
     gen:
       go:
         package: "db"
         out: "./db"
-        sql_package: "pq"
+        sql_package: "database/sql"
+        overrides:
+          - column: "movies.watched_date"
+            go_type:
+              type: "Date"

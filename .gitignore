@@ -26,3 +26,5 @@ tmp
 
 node_modules
 public/output.css
+
+moviesdiary.db

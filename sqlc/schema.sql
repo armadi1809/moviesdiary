@@ -1,19 +1,18 @@
-CREATE TABLE users (
-  id     BIGSERIAL PRIMARY KEY,
-  name   text      NOT NULL,
-  email  text      UNIQUE
+CREATE TABLE IF NOT EXISTS users (
+  id     INTEGER PRIMARY KEY AUTOINCREMENT,
+  name   TEXT    NOT NULL,
+  email  TEXT    NOT NULL UNIQUE
 );
 
-CREATE TABLE movies (
-    "id" int8 NOT NULL,
-    "user_id" int8 NOT NULL,
-    "name" text,
-    "watchedDate" date,
-    "posterUrl" text,
-    "diary" text,
-    "description" text,
-    "locationWatched" text,
-    "releaseDate" text,
-    CONSTRAINT "public_Movies_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE,
-    PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS movies (
+  id               INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id          INTEGER NOT NULL,
+  name             TEXT    NOT NULL DEFAULT '',
+  watched_date     TEXT    NOT NULL,
+  poster_url       TEXT    NOT NULL DEFAULT '',
+  diary            TEXT    NOT NULL DEFAULT '',
+  description      TEXT    NOT NULL DEFAULT '',
+  location_watched TEXT    NOT NULL DEFAULT '',
+  release_date     TEXT    NOT NULL DEFAULT '',
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

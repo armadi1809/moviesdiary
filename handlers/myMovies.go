@@ -105,7 +105,7 @@ func EditMovieHandler(queries *db.Queries) http.HandlerFunc {
 			ID:              int64(movieId),
 			Diary:           r.Form.Get("diary"),
 			LocationWatched: r.Form.Get("locationWatched"),
-			WatchedDate:     dateWatched,
+			WatchedDate:     db.Date(dateWatched),
 		}
 
 		movie, err := queries.EditMovie(r.Context(), params)
